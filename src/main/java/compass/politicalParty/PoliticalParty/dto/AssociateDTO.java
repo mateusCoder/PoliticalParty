@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import compass.politicalParty.PoliticalParty.model.Associate;
 import compass.politicalParty.PoliticalParty.model.TypeGender;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,12 @@ public class AssociateDTO {
 	
 	@Enumerated(EnumType.STRING)
 	private TypeGender gender;
+	
+	public AssociateDTO(Associate associate) {
+		this.id = associate.getId();
+		this.name = associate.getName();
+		this.politicalOffice = associate.getPoliticalOffice();
+		this.date = associate.getDate();
+		this.gender = associate.getGender();
+	}
 }
