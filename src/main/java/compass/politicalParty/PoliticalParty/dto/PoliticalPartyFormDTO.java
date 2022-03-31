@@ -32,4 +32,14 @@ public class PoliticalPartyFormDTO {
 	public PoliticalParty convertToParty(PoliticalPartyRepository partyRepository) {
 		return new PoliticalParty(name, acronym, ideology, date);
 	}
+
+	public PoliticalParty update(Integer id, PoliticalPartyRepository partyRepository) {
+		PoliticalParty party = partyRepository.getById(id);
+		party.setName(this.name);
+		party.setAcronym(this.acronym);
+		party.setIdeology(this.ideology);
+		party.setDate(this.date);
+		
+		return party;
+	}
 }
