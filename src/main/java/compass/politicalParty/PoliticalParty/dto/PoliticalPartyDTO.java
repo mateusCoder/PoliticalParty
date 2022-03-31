@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeIdeology;
+import compass.politicalParty.PoliticalParty.serializer.DateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +32,7 @@ public class PoliticalPartyDTO {
 	@Enumerated(EnumType.STRING)
 	private TypeIdeology ideology;
 	
+	@JsonSerialize(using = DateSerializer.class)
 	private Date date;	
 	
 	public PoliticalPartyDTO(PoliticalParty party) {
