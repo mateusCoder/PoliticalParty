@@ -10,12 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,4 +30,11 @@ public class PoliticalParty {
 	private TypeIdeology ideology;
 	
 	private Date date;
+
+	public PoliticalParty(String name, String acronym, TypeIdeology ideology, Date date) {
+		this.name = name;
+		this.acronym = acronym;
+		this.ideology = ideology;
+		this.date = date;
+	}
 }

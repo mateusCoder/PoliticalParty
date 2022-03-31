@@ -5,7 +5,9 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeIdeology;
+import compass.politicalParty.PoliticalParty.repository.PoliticalPartyRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +28,8 @@ public class PoliticalPartyFormDTO {
 	
 	@NotNull
 	private Date date;
+
+	public PoliticalParty convertToParty(PoliticalPartyRepository partyRepository) {
+		return new PoliticalParty(name, acronym, ideology, date);
+	}
 }

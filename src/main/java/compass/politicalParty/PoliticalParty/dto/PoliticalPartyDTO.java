@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeIdeology;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +29,13 @@ public class PoliticalPartyDTO {
 	@Enumerated(EnumType.STRING)
 	private TypeIdeology ideology;
 	
-	private Date date;
+	private Date date;	
+	
+	public PoliticalPartyDTO(PoliticalParty party) {
+		this.id = party.getId();
+		this.name = party.getName();
+		this.acronym = party.getAcronym();
+		this.ideology= party.getIdeology();
+		this.date = party.getDate();
+	}
 }
