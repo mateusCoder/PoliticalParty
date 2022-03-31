@@ -2,6 +2,7 @@ package compass.politicalParty.PoliticalParty.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -55,6 +56,15 @@ public class PoliticalPartyController {
 		List<PoliticalPartyDTO> partyDTO = party.stream().map(e -> mapper.map(e, PoliticalPartyDTO.class)).collect(Collectors.toList());
 		return partyDTO;
 	}	
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<PoliticalPartyDTO> check(@PathVariable Integer id) {
+		Optional<PoliticalParty> party = partyRepository.findById(id);
+		if(party.isPresent()) {
+			return ResponseEntity.ok(new PoliticalPartyDTO(party.get()));
+		}
+		return ResponseEntity.notFound().build();
+	}
 	
 	@Transactional
 	@PostMapping
