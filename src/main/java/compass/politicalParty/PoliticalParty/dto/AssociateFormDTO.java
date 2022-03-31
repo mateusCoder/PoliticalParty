@@ -33,4 +33,14 @@ public class AssociateFormDTO {
 	public Associate convertToAssociate(AssociateRepository associateRepository) {
 		return new Associate(name, politicalOffice, date, gender);
 	}
+
+	public Associate update(Integer id, AssociateRepository associateRepository) {
+		Associate associate = associateRepository.getById(id);
+		associate.setName(this.name);
+		associate.setPoliticalOffice(this.politicalOffice);
+		associate.setDate(this.date);
+		associate.setGender(this.gender);
+		
+		return associate;
+	}
 }

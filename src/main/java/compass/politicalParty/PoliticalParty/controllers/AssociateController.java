@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +27,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import compass.politicalParty.PoliticalParty.dto.AssociateDTO;
 import compass.politicalParty.PoliticalParty.dto.AssociateFormDTO;
+import compass.politicalParty.PoliticalParty.dto.PoliticalPartyDTO;
+import compass.politicalParty.PoliticalParty.dto.PoliticalPartyFormDTO;
 import compass.politicalParty.PoliticalParty.model.Associate;
+import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
 import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
 
@@ -70,6 +75,14 @@ public class AssociateController {
 
 		URI uri = uriBuilder.path("/api/associate/{id}").buildAndExpand(associate.getId()).toUri();
 		return ResponseEntity.created(uri).body(new AssociateDTO(associate));
+	}
+	
+	@Transactional
+	@PutMapping("/{id}")
+	public ResponseEntity<AssociateDTO> update(@PathVariable Integer id, @RequestBody @Valid AssociateFormDTO associateFormDTO){
+		Associate associate = associateFormDTO.update(id, associateRepository);
+
+		return ResponseEntity.ok(new AssociateDTO(associate));
 	}
 	
 }
