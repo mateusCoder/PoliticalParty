@@ -33,4 +33,11 @@ public class Associate {
 	
 	@Enumerated(EnumType.STRING)
 	private TypeGender gender;
+
+	public Associate(String name, TypeOffice politicalOffice, Date date, TypeGender gender) {
+		this.name = name;
+		this.politicalOffice = politicalOffice;
+		this.date = date;
+		this.gender = gender;
+	}
 }

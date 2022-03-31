@@ -5,8 +5,10 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import compass.politicalParty.PoliticalParty.model.Associate;
 import compass.politicalParty.PoliticalParty.model.TypeGender;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
+import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +29,8 @@ public class AssociateFormDTO {
 	
 	@NotEmpty
 	private TypeGender gender;
+
+	public Associate convertToAssociate(AssociateRepository associateRepository) {
+		return new Associate(name, politicalOffice, date, gender);
+	}
 }
