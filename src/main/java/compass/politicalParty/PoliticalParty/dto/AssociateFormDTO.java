@@ -30,10 +30,6 @@ public class AssociateFormDTO {
 	@NotEmpty
 	private TypeGender gender;
 
-	public Associate convertToAssociate(AssociateRepository associateRepository) {
-		return new Associate(name, politicalOffice, date, gender);
-	}
-
 	public Associate update(Integer id, AssociateRepository associateRepository) {
 		Associate associate = associateRepository.getById(id);
 		associate.setName(this.name);

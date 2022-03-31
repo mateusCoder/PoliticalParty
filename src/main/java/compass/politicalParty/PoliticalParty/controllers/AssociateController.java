@@ -1,7 +1,6 @@
 package compass.politicalParty.PoliticalParty.controllers;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -11,6 +10,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -43,7 +43,7 @@ public class AssociateController {
 	ModelMapper mapper;
 	
 	@GetMapping
-	public List<AssociateDTO> list (@RequestParam(required = false) TypeOffice politicalOffice,
+	public Page<AssociateDTO> list (@RequestParam(required = false) TypeOffice politicalOffice,
 			@PageableDefault(sort = "name", direction = Direction.ASC, size = 100) Pageable pagination){
 		Page<Associate> associate;
 		
@@ -52,7 +52,7 @@ public class AssociateController {
 		} else {
 			associate = associateRepository.findByPoliticalOffice(politicalOffice, pagination);
 		}
-		List<AssociateDTO> associateDTO = associate.stream().map(e -> mapper.map(e, AssociateDTO.class)).collect(Collectors.toList());
+		Page<AssociateDTO> associateDTO = new PageImpl<>(associate.stream().map(e -> mapper.map(e, AssociateDTO.class)).collect(Collectors.toList()));
 		return associateDTO;
 	}
 	
@@ -68,7 +68,7 @@ public class AssociateController {
 	@Transactional
 	@PostMapping
 	public ResponseEntity<AssociateDTO> add(@RequestBody AssociateFormDTO associateFormDTO, UriComponentsBuilder uriBuilder) {
-		Associate associate = associateFormDTO.convertToAssociate(associateRepository);
+		Associate associate = mapper.map(associateFormDTO, Associate.class);
 		associateRepository.save(associate);
 
 		URI uri = uriBuilder.path("/api/associate/{id}").buildAndExpand(associate.getId()).toUri();

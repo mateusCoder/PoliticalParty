@@ -1,7 +1,6 @@
 package compass.politicalParty.PoliticalParty.controllers;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -11,6 +10,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -43,7 +43,7 @@ public class PoliticalPartyController {
 	ModelMapper mapper;
 
 	@GetMapping
-	public List<PoliticalPartyDTO> list(@RequestParam(required = false) TypeIdeology ideology,
+	public Page<PoliticalPartyDTO> list(@RequestParam(required = false) TypeIdeology ideology,
 			@PageableDefault(sort = "id", direction = Direction.ASC, size = 100) Pageable pagination){
 		Page<PoliticalParty> party; 
 		
@@ -52,8 +52,7 @@ public class PoliticalPartyController {
 		} else {
 			party = partyRepository.findByIdeology(ideology, pagination);
 		}	
-		
-		List<PoliticalPartyDTO> partyDTO = party.stream().map(e -> mapper.map(e, PoliticalPartyDTO.class)).collect(Collectors.toList());
+		Page<PoliticalPartyDTO> partyDTO = new PageImpl<>(party.stream().map(e -> mapper.map(e, PoliticalPartyDTO.class)).collect(Collectors.toList()));
 		return partyDTO;
 	}	
 	
@@ -69,7 +68,7 @@ public class PoliticalPartyController {
 	@Transactional
 	@PostMapping
 	public ResponseEntity<PoliticalPartyDTO> add(@RequestBody PoliticalPartyFormDTO partyFormDTO, UriComponentsBuilder uriBuilder) {
-		PoliticalParty party = partyFormDTO.convertToParty(partyRepository);
+		PoliticalParty party = mapper.map(partyFormDTO, PoliticalParty.class);
 		partyRepository.save(party);
 
 		URI uri = uriBuilder.path("/api/politicalParty/{id}").buildAndExpand(party.getId()).toUri();
