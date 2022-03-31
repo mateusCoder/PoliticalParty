@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,10 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import compass.politicalParty.PoliticalParty.dto.AssociateDTO;
 import compass.politicalParty.PoliticalParty.dto.AssociateFormDTO;
-import compass.politicalParty.PoliticalParty.dto.PoliticalPartyDTO;
-import compass.politicalParty.PoliticalParty.dto.PoliticalPartyFormDTO;
 import compass.politicalParty.PoliticalParty.model.Associate;
-import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
 import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
 
@@ -85,4 +83,10 @@ public class AssociateController {
 		return ResponseEntity.ok(new AssociateDTO(associate));
 	}
 	
+	@Transactional
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable Integer id){
+		associateRepository.deleteById(id);
+		return ResponseEntity.ok().build();	
+	}
 }
