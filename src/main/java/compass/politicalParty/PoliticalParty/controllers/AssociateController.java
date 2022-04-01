@@ -28,9 +28,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import compass.politicalParty.PoliticalParty.dto.AssociateDTO;
 import compass.politicalParty.PoliticalParty.dto.AssociateFormDTO;
+import compass.politicalParty.PoliticalParty.dto.LinkFormParty;
 import compass.politicalParty.PoliticalParty.model.Associate;
+import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
 import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
+import compass.politicalParty.PoliticalParty.repository.PoliticalPartyRepository;
 
 @RestController
 @RequestMapping("/api/associate")
@@ -38,6 +41,9 @@ public class AssociateController {
 
 	@Autowired
 	AssociateRepository associateRepository;
+	
+	@Autowired
+	PoliticalPartyRepository partyRepository;
 	
 	@Autowired
 	ModelMapper mapper;
@@ -52,7 +58,9 @@ public class AssociateController {
 		} else {
 			associate = associateRepository.findByPoliticalOffice(politicalOffice, pagination);
 		}
-		Page<AssociateDTO> associateDTO = new PageImpl<>(associate.stream().map(e -> mapper.map(e, AssociateDTO.class)).collect(Collectors.toList()));
+		Page<AssociateDTO> associateDTO = new PageImpl<>(associate.stream()
+				.map(e -> mapper.map(e, AssociateDTO.class)).collect(Collectors.toList()));
+		
 		return associateDTO;
 	}
 	
@@ -70,9 +78,27 @@ public class AssociateController {
 	public ResponseEntity<AssociateDTO> add(@RequestBody AssociateFormDTO associateFormDTO, UriComponentsBuilder uriBuilder) {
 		Associate associate = mapper.map(associateFormDTO, Associate.class);
 		associateRepository.save(associate);
-
 		URI uri = uriBuilder.path("/api/associate/{id}").buildAndExpand(associate.getId()).toUri();
+		
 		return ResponseEntity.created(uri).body(new AssociateDTO(associate));
+	}
+	
+	@Transactional
+	@PostMapping("/politicalParty")
+	public ResponseEntity<String> linksParty(@RequestBody @Valid
+			LinkFormParty linkFormParty, UriComponentsBuilder uriBuilder){
+		
+		if(linkFormParty.getPartyId() != null && linkFormParty.getAssociateId() != null) {
+			Associate associate = associateRepository.getById(linkFormParty.getAssociateId());
+			PoliticalParty party = partyRepository.getById(linkFormParty.getPartyId());
+			
+			associate.setPoliticalParty(party);
+			associateRepository.save(associate);
+							
+			return ResponseEntity.ok().body("Associado vinculado com Sucesso");
+		}
+		
+		throw new RuntimeException("Partido ou Candidato nulos");
 	}
 	
 	@Transactional
@@ -87,6 +113,7 @@ public class AssociateController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Integer id){
 		associateRepository.deleteById(id);
+		
 		return ResponseEntity.ok().build();	
 	}
 }

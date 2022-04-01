@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="political_party")
 public class PoliticalParty {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +35,6 @@ public class PoliticalParty {
 	@Enumerated(EnumType.STRING)
 	private TypeIdeology ideology;
 	
-	@JsonSerialize(using = DateSerializer.class)
 	private Date date;
 
 	public PoliticalParty(String name, String acronym, TypeIdeology ideology, Date date) {

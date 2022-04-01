@@ -7,10 +7,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import compass.politicalParty.PoliticalParty.model.Associate;
+import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeGender;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
 import compass.politicalParty.PoliticalParty.serializer.DateSerializer;
@@ -36,6 +39,10 @@ public class AssociateDTO {
 	
 	@Enumerated(EnumType.STRING)
 	private TypeGender gender;
+	
+	@ManyToOne
+	@JoinColumn(name="political_party")
+	private PoliticalParty politicalParty;
 	
 	public AssociateDTO(Associate associate) {
 		this.id = associate.getId();

@@ -8,10 +8,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import compass.politicalParty.PoliticalParty.serializer.DateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="associate")
 public class Associate {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,16 +32,22 @@ public class Associate {
 	@Enumerated(EnumType.STRING)
 	private TypeOffice politicalOffice;
 	
-	@JsonSerialize(using = DateSerializer.class)
 	private Date date;
 	
 	@Enumerated(EnumType.STRING)
 	private TypeGender gender;
+	
+	@ManyToOne
+	private PoliticalParty politicalParty;
 
 	public Associate(String name, TypeOffice politicalOffice, Date date, TypeGender gender) {
 		this.name = name;
 		this.politicalOffice = politicalOffice;
 		this.date = date;
 		this.gender = gender;
+	}
+
+	public Associate(PoliticalParty politicalParty) {
+		this.politicalParty = politicalParty;
 	}
 }

@@ -52,7 +52,9 @@ public class PoliticalPartyController {
 		} else {
 			party = partyRepository.findByIdeology(ideology, pagination);
 		}	
-		Page<PoliticalPartyDTO> partyDTO = new PageImpl<>(party.stream().map(e -> mapper.map(e, PoliticalPartyDTO.class)).collect(Collectors.toList()));
+		Page<PoliticalPartyDTO> partyDTO = new PageImpl<>(party.stream()
+				.map(e -> mapper.map(e, PoliticalPartyDTO.class)).collect(Collectors.toList()));
+		
 		return partyDTO;
 	}	
 	
@@ -62,16 +64,17 @@ public class PoliticalPartyController {
 		if(party.isPresent()) {
 			return ResponseEntity.ok(new PoliticalPartyDTO(party.get()));
 		}
+		
 		return ResponseEntity.notFound().build();
 	}
 	
 	@Transactional
 	@PostMapping
-	public ResponseEntity<PoliticalPartyDTO> add(@RequestBody PoliticalPartyFormDTO partyFormDTO, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<PoliticalPartyDTO> add(@RequestBody @Valid PoliticalPartyFormDTO partyFormDTO, UriComponentsBuilder uriBuilder) {
 		PoliticalParty party = mapper.map(partyFormDTO, PoliticalParty.class);
 		partyRepository.save(party);
-
 		URI uri = uriBuilder.path("/api/politicalParty/{id}").buildAndExpand(party.getId()).toUri();
+		
 		return ResponseEntity.created(uri).body(new PoliticalPartyDTO(party));
 	}
 	
@@ -87,6 +90,7 @@ public class PoliticalPartyController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Integer id){
 		partyRepository.deleteById(id);
+		
 		return ResponseEntity.ok().build();
 	}
 }

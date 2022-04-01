@@ -10,5 +10,4 @@ import compass.politicalParty.PoliticalParty.model.TypeOffice;
 public interface AssociateRepository extends JpaRepository<Associate, Integer> {
 
 	Page<Associate> findByPoliticalOffice(TypeOffice politicalOffice, Pageable pagination);
-
 }

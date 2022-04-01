@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import compass.politicalParty.PoliticalParty.model.Associate;
+import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeGender;
 import compass.politicalParty.PoliticalParty.model.TypeOffice;
 import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
@@ -29,6 +30,8 @@ public class AssociateFormDTO {
 	
 	@NotEmpty
 	private TypeGender gender;
+	
+	private PoliticalParty politicalParty;
 
 	public Associate update(Integer id, AssociateRepository associateRepository) {
 		Associate associate = associateRepository.getById(id);
