@@ -1,6 +1,6 @@
 package compass.politicalParty.PoliticalParty.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ public class AssociateFormDTO {
 	private TypeOffice politicalOffice;
 	
 	@NotNull
-	private Date date;
+	private LocalDate date;
 	
 	@NotEmpty
 	private TypeGender gender;

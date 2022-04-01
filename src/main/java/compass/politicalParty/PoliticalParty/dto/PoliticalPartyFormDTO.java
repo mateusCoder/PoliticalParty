@@ -1,6 +1,6 @@
 package compass.politicalParty.PoliticalParty.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -27,7 +27,7 @@ public class PoliticalPartyFormDTO {
 	private TypeIdeology ideology;
 	
 	@NotNull
-	private Date date;
+	private LocalDate date;
 
 	public PoliticalParty update(Integer id, PoliticalPartyRepository partyRepository) {
 		PoliticalParty party = partyRepository.getById(id);

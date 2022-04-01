@@ -1,6 +1,6 @@
 package compass.politicalParty.PoliticalParty.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,7 +35,7 @@ public class AssociateDTO {
 	private TypeOffice politicalOffice;
 	
 	@JsonSerialize(using = DateSerializer.class)
-	private Date date;
+	private LocalDate date;
 	
 	@Enumerated(EnumType.STRING)
 	private TypeGender gender;

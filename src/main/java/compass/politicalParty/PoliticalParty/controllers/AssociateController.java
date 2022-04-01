@@ -116,4 +116,5 @@ public class AssociateController {
 		
 		return ResponseEntity.ok().build();	
 	}
+	
 }

@@ -1,6 +1,7 @@
 package compass.politicalParty.PoliticalParty.controllers;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -26,10 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import compass.politicalParty.PoliticalParty.dto.AssociateDTO;
 import compass.politicalParty.PoliticalParty.dto.PoliticalPartyDTO;
 import compass.politicalParty.PoliticalParty.dto.PoliticalPartyFormDTO;
+import compass.politicalParty.PoliticalParty.model.Associate;
 import compass.politicalParty.PoliticalParty.model.PoliticalParty;
 import compass.politicalParty.PoliticalParty.model.TypeIdeology;
+import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
 import compass.politicalParty.PoliticalParty.repository.PoliticalPartyRepository;
 
 @RestController
@@ -38,6 +42,9 @@ public class PoliticalPartyController {
 	
 	@Autowired 
 	PoliticalPartyRepository partyRepository;
+	
+	@Autowired 
+	AssociateRepository associateRepository;
 	
 	@Autowired
 	ModelMapper mapper;

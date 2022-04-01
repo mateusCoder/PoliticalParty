@@ -1,6 +1,6 @@
 package compass.politicalParty.PoliticalParty.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,7 +32,7 @@ public class Associate {
 	@Enumerated(EnumType.STRING)
 	private TypeOffice politicalOffice;
 	
-	private Date date;
+	private LocalDate date;
 	
 	@Enumerated(EnumType.STRING)
 	private TypeGender gender;
@@ -40,7 +40,7 @@ public class Associate {
 	@ManyToOne
 	private PoliticalParty politicalParty;
 
-	public Associate(String name, TypeOffice politicalOffice, Date date, TypeGender gender) {
+	public Associate(String name, TypeOffice politicalOffice, LocalDate date, TypeGender gender) {
 		this.name = name;
 		this.politicalOffice = politicalOffice;
 		this.date = date;

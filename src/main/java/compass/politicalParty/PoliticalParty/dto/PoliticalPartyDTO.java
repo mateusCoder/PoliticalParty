@@ -1,6 +1,6 @@
 package compass.politicalParty.PoliticalParty.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,7 +33,7 @@ public class PoliticalPartyDTO {
 	private TypeIdeology ideology;
 	
 	@JsonSerialize(using = DateSerializer.class)
-	private Date date;	
+	private LocalDate date;	
 	
 	public PoliticalPartyDTO(PoliticalParty party) {
 		this.id = party.getId();
