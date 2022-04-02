@@ -75,6 +75,14 @@ public class PoliticalPartyController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/{id}/associates")
+	public List<AssociateDTO> checkA(@PathVariable Integer id, PoliticalParty party) {
+		List<Associate> associate = associateRepository.findByPoliticalParty(party);
+		List<AssociateDTO> associateDTO = associate.stream()
+				.map(e -> mapper.map(e, AssociateDTO.class)).collect(Collectors.toList());
+		return associateDTO;
+	}	
+	
 	@Transactional
 	@PostMapping
 	public ResponseEntity<PoliticalPartyDTO> add(@RequestBody @Valid PoliticalPartyFormDTO partyFormDTO, UriComponentsBuilder uriBuilder) {
