@@ -117,4 +117,18 @@ public class AssociateController {
 		return ResponseEntity.ok().build();	
 	}
 	
+	@Transactional
+	@DeleteMapping("/{associate_id}/politicalParty/{party_id}")
+	public String deletePartyOfAssociate(@PathVariable Integer associate_id,@PathVariable Integer party_id){
+		Associate associate = associateRepository.getById(associate_id);
+		PoliticalParty party = partyRepository.getById(party_id);
+		
+		if(associate.getPoliticalParty() == party) {
+			associate.setPoliticalParty(null);
+			associateRepository.save(associate);
+					
+			return ("Associado desvinculado com sucesso");
+		}
+		return("Associado não vinculado ao Partido informado!");
+	}
 }

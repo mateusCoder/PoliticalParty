@@ -15,4 +15,5 @@ public interface AssociateRepository extends JpaRepository<Associate, Integer> {
 	Page<Associate> findByPoliticalOffice(TypeOffice politicalOffice, Pageable pagination);
 
 	List<Associate> findByPoliticalParty(PoliticalParty party);
+
 }

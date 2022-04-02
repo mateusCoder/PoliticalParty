@@ -76,7 +76,7 @@ public class PoliticalPartyController {
 	}
 	
 	@GetMapping("/{id}/associates")
-	public List<AssociateDTO> checkA(@PathVariable Integer id, PoliticalParty party) {
+	public List<AssociateDTO> checkAssociatesOfParty(@PathVariable Integer id, PoliticalParty party) {
 		List<Associate> associate = associateRepository.findByPoliticalParty(party);
 		List<AssociateDTO> associateDTO = associate.stream()
 				.map(e -> mapper.map(e, AssociateDTO.class)).collect(Collectors.toList());
