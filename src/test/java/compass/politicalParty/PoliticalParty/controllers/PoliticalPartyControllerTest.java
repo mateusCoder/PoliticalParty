@@ -52,7 +52,7 @@ class PoliticalPartyControllerTest {
 	}
 	
 	@Test
-	public void postAssociateById_sucess() throws Exception{
+	public void postPartyById_sucess() throws Exception{
 		URI uri = new URI("/api/politicalParty/");
 		String json = "{" +
 				"\"name\":\"Partido dos Trabalhadores\",\n"+
@@ -68,7 +68,7 @@ class PoliticalPartyControllerTest {
 	}
 	
 	@Test
-	public void postAssociateById_badRequest() throws Exception{
+	public void postPartyById_badRequest() throws Exception{
 		URI uri = new URI("/api/politicalParty/");
 		String json = "{" +
 				"\"name\":\"\",\n"+
@@ -81,6 +81,42 @@ class PoliticalPartyControllerTest {
 				.content(json)
 				.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().is(400));
+	}
+	
+	@Test
+	public void updatePartyById_sucess() throws Exception{
+		
+		Integer id = Integer.valueOf(1);
+		URI uri = new URI("/api/politicalParty/" + id);
+		String json = "{" +
+				"\"name\":\"Atualizado\",\n"+
+				"\"acronym\":\"PT\",\n" +
+				"\"ideology\":\"ESQUERDA\",\n" +
+				"\"date\":\"2020-03-30\"\n" +
+				"}";
+		mockMvc.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	@Test
+	public void updatePartyById_notFound() throws Exception{
+		
+		Integer id = Integer.valueOf(300);
+		URI uri = new URI("/api/politicalParty/" + id);
+		String json = "{" +
+				"\"name\":\"Atualizado\",\n"+
+				"\"acronym\":\"PT\",\n" +
+				"\"ideology\":\"ESQUERDA\",\n" +
+				"\"date\":\"2020-03-30\"\n" +
+				"}";
+		mockMvc.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
 
 }
