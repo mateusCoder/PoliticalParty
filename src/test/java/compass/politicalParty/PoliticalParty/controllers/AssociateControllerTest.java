@@ -57,6 +57,32 @@ class AssociateControllerTest {
 	}
 	
 	@Test
+	public void postAssociateOfParty_sucess() throws Exception{
+		URI uri = new URI("/api/associate/politicalParty");
+		String json = "{" +
+				"\"associateId\":\"5\",\n"+
+				"\"partyId\":\"1\"\n" +
+				"}";
+		mockMvc.perform(MockMvcRequestBuilders
+				.post(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	@Test
+	public void deleteAssociateOfParty_sucess() throws Exception{
+		Integer idAssociate = Integer.valueOf(5);
+		Integer idParty = Integer.valueOf(1);
+		URI uri = new URI("/api/associate/" + idAssociate + "/politicalParty/" + idParty);
+
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	@Test
 	public void updateAssociateById_sucess() throws Exception{
 		
 		Integer id = Integer.valueOf(1);
@@ -72,6 +98,24 @@ class AssociateControllerTest {
 				.content(json)
 				.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	@Test
+	public void updateAssociateById_notFound() throws Exception{
+		
+		Integer id = Integer.valueOf(300);
+		URI uri = new URI("/api/associate/" + id);
+		String json = "{" +
+				"\"name\":\"Atualizado\",\n"+
+				"\"politicalOffice\":\"PRESIDENTE\",\n" +
+				"\"date\":\"2020-03-30\",\n" +
+				"\"gender\":\"MASCULINO\"\n" +
+				"}";
+		mockMvc.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
 	
 	@Test
@@ -95,5 +139,4 @@ class AssociateControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
-	
 }

@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.management.AttributeNotFoundException;
-import javax.security.auth.login.AccountNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -106,9 +105,13 @@ public class AssociateController {
 	@Transactional
 	@PutMapping("/{id}")
 	public ResponseEntity<AssociateDTO> update(@PathVariable Integer id, @RequestBody @Valid AssociateFormDTO associateFormDTO){
-		Associate associate = associateFormDTO.updateForm(id, associateRepository);
-
-		return ResponseEntity.ok(new AssociateDTO(associate));
+		Optional<Associate> associateOptional = associateRepository.findById(id);
+		
+		if(associateOptional.isPresent()) {
+			Associate associate = associateFormDTO.updateForm(id, associateRepository);
+			return ResponseEntity.ok(new AssociateDTO(associate));
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
 	@Transactional

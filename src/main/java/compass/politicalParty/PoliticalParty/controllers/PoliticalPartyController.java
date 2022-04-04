@@ -96,16 +96,22 @@ public class PoliticalPartyController {
 	@Transactional
 	@PutMapping("/{id}")
 	public ResponseEntity<PoliticalPartyDTO> update(@PathVariable Integer id, @RequestBody @Valid PoliticalPartyFormDTO partyFormDTO){
-		PoliticalParty party = partyFormDTO.update(id, partyRepository);
-
-		return ResponseEntity.ok(new PoliticalPartyDTO(party));
+		Optional<PoliticalParty> partyOptional = partyRepository.findById(id);
+		if(partyOptional.isPresent()) {
+			PoliticalParty party = partyFormDTO.update(id, partyRepository);
+			return ResponseEntity.ok(new PoliticalPartyDTO(party));
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
 	@Transactional
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Integer id){
-		partyRepository.deleteById(id);
-		
-		return ResponseEntity.ok().build();
+		Optional<PoliticalParty> party = partyRepository.findById(id);
+		if(party.isPresent()) {
+			partyRepository.deleteById(id);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
 	}
 }
