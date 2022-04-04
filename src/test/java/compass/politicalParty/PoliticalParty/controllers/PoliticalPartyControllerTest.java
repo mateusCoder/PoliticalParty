@@ -51,6 +51,16 @@ class PoliticalPartyControllerTest {
 			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
 	
+	@Test 
+	public void getAssociatesOfParty_sucess() throws Exception{
+		Integer id = Integer.valueOf(1);
+		URI uri = new URI("/api/politicalParty/" + id + "/associates");
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+
 	@Test
 	public void postPartyById_sucess() throws Exception{
 		URI uri = new URI("/api/politicalParty/");
