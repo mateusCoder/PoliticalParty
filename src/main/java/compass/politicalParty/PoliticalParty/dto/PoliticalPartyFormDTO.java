@@ -17,16 +17,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PoliticalPartyFormDTO {
 
-	@NotEmpty @NotEmpty
+	@NotEmpty(message = "Nome é requisitado")
 	private String name;
 	
-	@NotNull @NotEmpty
+	@NotNull(message = "Sigla é requisitado")
 	private String acronym;
 	
-	@NotNull
+	@NotNull(message = "Ideologia é requisitada")
 	private TypeIdeology ideology;
 	
-	@NotNull
+	@NotNull(message = "Data é requisitada")
 	private LocalDate date;
 
 	public PoliticalParty update(Integer id, PoliticalPartyRepository partyRepository) {

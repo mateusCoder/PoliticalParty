@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LinkFormParty {
 	
-	@NotNull
+	@NotNull(message="ID Partido é requisitado")
 	private Integer partyId;
+	
+	@NotNull(message="ID Associado é requisitado")
 	private Integer associateId;
 	
 }

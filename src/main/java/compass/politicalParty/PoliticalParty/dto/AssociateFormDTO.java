@@ -19,16 +19,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssociateFormDTO {
 	
-	@NotEmpty @NotEmpty
+	@NotEmpty(message = "Nome é requisitado")
 	private String name;
 	
-	@NotNull
+	@NotNull(message = "Cargo é requisitado")
 	private TypeOffice politicalOffice;
 	
-	@NotNull
+	@NotNull(message = "Data é requisitada")
 	private LocalDate date;
 	
-	@NotEmpty
+	@NotNull(message = "Gênero é requisitado")
 	private TypeGender gender;
 	
 	private PoliticalParty politicalParty;
