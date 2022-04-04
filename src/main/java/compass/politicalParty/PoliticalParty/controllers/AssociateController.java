@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.management.AttributeNotFoundException;
+import javax.security.auth.login.AccountNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -111,10 +113,15 @@ public class AssociateController {
 	
 	@Transactional
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Integer id){
-		associateRepository.deleteById(id);
+	public ResponseEntity<?> delete(@PathVariable Integer id) throws AttributeNotFoundException{
+		Optional<Associate> associate = associateRepository.findById(id);
 		
-		return ResponseEntity.ok().build();	
+		if(associate.isPresent()) {
+			associateRepository.deleteById(id);
+			return ResponseEntity.ok().build();	
+		}
+		return ResponseEntity.notFound().build();
+		
 	}
 	
 	@Transactional

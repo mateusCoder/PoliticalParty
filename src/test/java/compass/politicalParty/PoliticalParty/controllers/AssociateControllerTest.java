@@ -74,7 +74,26 @@ class AssociateControllerTest {
 			.andExpect(MockMvcResultMatchers.status().is(200));
 	}
 	
+	@Test
+	public void deleteAssociateById_sucess() throws Exception{
+		Integer id = Integer.valueOf(1);
+		URI uri = new URI("/api/associate/" + id);
+
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
 	
-	
+	@Test
+	public void deleteAssociateById_notFound() throws Exception{
+		Integer id = Integer.valueOf(300);
+		URI uri = new URI("/api/associate/" + id);
+
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(404));
+	}
 	
 }
