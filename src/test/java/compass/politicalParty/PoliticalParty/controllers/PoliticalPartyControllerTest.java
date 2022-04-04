@@ -86,13 +86,13 @@ class PoliticalPartyControllerTest {
 	@Test
 	public void updatePartyById_sucess() throws Exception{
 		
-		Integer id = Integer.valueOf(1);
+		Integer id = Integer.valueOf(2);
 		URI uri = new URI("/api/politicalParty/" + id);
 		String json = "{" +
 				"\"name\":\"Atualizado\",\n"+
 				"\"acronym\":\"PT\",\n" +
 				"\"ideology\":\"ESQUERDA\",\n" +
-				"\"date\":\"2020-03-30\"\n" +
+				"\"date\":\"2022-04-01\"\n" +
 				"}";
 		mockMvc.perform(MockMvcRequestBuilders
 				.put(uri)
@@ -115,6 +115,28 @@ class PoliticalPartyControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders
 				.put(uri)
 				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(404));
+	}
+	
+	@Test
+	public void deletePartyById_sucess() throws Exception{
+		Integer id = Integer.valueOf(1);
+		URI uri = new URI("/api/politicalParty/" + id);
+
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	@Test
+	public void deletePartyById_notFound() throws Exception{
+		Integer id = Integer.valueOf(300);
+		URI uri = new URI("/api/politicalParty/" + id);
+
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
 				.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
