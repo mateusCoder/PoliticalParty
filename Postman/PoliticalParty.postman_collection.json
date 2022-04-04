@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "ad60a642-46d5-48bf-9e05-1117e6e52448",
+		"name": "PoliticalParty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Party",
+			"item": [
+				{
+					"name": "AllList Party",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by Ideology",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty?ideology=ESQUERDA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty"
+							],
+							"query": [
+								{
+									"key": "ideology",
+									"value": "ESQUERDA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Party Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Associate of Party",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty/1/associates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty",
+								"1",
+								"associates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Party",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"PSDB\",\r\n        \"acronym\": \"PSDB\",\r\n        \"ideology\": \"CENTRO\",\r\n        \"date\": \"2022-04-01\"\r\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Party",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"PSDB\",\r\n        \"acronym\": \"PSDB\",\r\n        \"ideology\": \"CENTRO\",\r\n        \"date\": \"2022-04-01\"\r\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Party",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/politicalParty/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"politicalParty",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Associate",
+			"item": [
+				{
+					"name": "AllList Associate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/associate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by politicalOffice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/associate?politicalOffice=PREFEITO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate"
+							],
+							"query": [
+								{
+									"key": "politicalOffice",
+									"value": "PREFEITO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Associate Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/associate/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Associate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste\",\r\n    \"politicalOffice\": \"PRESIDENTE\",\r\n    \"date\": \"2022-03-30\",\r\n    \"gender\": \"MASCULINO\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/associate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Associate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Atualizado\",\r\n    \"politicalOffice\": \"PRESIDENTE\",\r\n    \"date\": \"2022-03-30\",\r\n    \"gender\": \"MASCULINO\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/associate/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Associate",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/associate/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Associate of Party",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"associateId\":\"5\",\r\n    \"partyId\": \"1\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/associate/politicalParty",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate",
+								"politicalParty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Associate of Party",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/associate/5/politicalParty/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"associate",
+								"5",
+								"politicalParty",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
