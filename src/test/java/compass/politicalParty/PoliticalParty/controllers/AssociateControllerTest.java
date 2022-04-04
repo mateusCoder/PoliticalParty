@@ -1,71 +1,61 @@
 package compass.politicalParty.PoliticalParty.controllers;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.LocalDate;
-import java.util.Optional;
+import java.net.URI;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import compass.politicalParty.PoliticalParty.model.Associate;
-import compass.politicalParty.PoliticalParty.model.TypeGender;
-import compass.politicalParty.PoliticalParty.model.TypeOffice;
-import compass.politicalParty.PoliticalParty.repository.AssociateRepository;
-import compass.politicalParty.PoliticalParty.repository.PoliticalPartyRepository;
-
-@WebMvcTest(AssociateController.class)
+@RunWith(SpringRunner.class)
+@AutoConfigureMockMvc
+@SpringBootTest
 class AssociateControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@Autowired
-    ObjectMapper mapper;
-	
-	@MockBean
-	PoliticalPartyRepository partyRepository;
-	
-	@MockBean
-	private AssociateRepository associateRepository;
-	
-	Associate associate1 = new Associate("Gilberto Nascimento JR", TypeOffice.VEREADOR, LocalDate.now(), TypeGender.MASCULINO);
-	Associate associate2 = new Associate("Robert Willians", TypeOffice.PREFEITO, LocalDate.now(), TypeGender.MASCULINO);
-	Associate associate3 = new Associate("Maria Dolores da Cunha", TypeOffice.DEPUTADO_ESTADUAL, LocalDate.of(2019, 10, 10), TypeGender.FEMININO);
-	
 	@Test
-	public void deleteAssociateById_success() throws Exception {
-	    Mockito.when(associateRepository.findById(associate2.getId())).thenReturn(Optional.of(associate2));
+	public void getAllAssociate_sucess() throws Exception{
+		
+		URI uri = new URI("/api/associate");
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
 	
-	    mockMvc.perform(MockMvcRequestBuilders
-	            .delete("/api/associate/2")
-	            .contentType(MediaType.APPLICATION_JSON))
-	            .andExpect(status().isOk());
+	@Test 
+	public void getAssociateById_notFound() throws Exception{
+		URI uri = new URI("/api/associate/141");
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(404));
 	}
 	
 	@Test
-	public void deleteAssociateById_notFound() throws Exception {
-	    Mockito.when(associateRepository.findById(5)).thenReturn(null);
-	    
-	    mockMvc.perform(MockMvcRequestBuilders
-	            .delete("/api/associate/5")
-	            .contentType(MediaType.APPLICATION_JSON))
-	    .andExpect(status().isBadRequest())
-	            .andExpect(result ->
-	            assertTrue(result.getResolvedException() instanceof NotFoundException))
-	    .andExpect(result ->
-	            assertEquals("Patient with ID 5 does not exist.", result.getResolvedException().getMessage()));
+	public void postAssociateById_sucess() throws Exception{
+		URI uri = new URI("/api/associate/");
+		String json = "{" +
+				"\"name\":\"Atualizado\",\n"+
+				"\"politicalOffice\":\"PRESIDENTE\",\n" +
+				"\"date\":\"2020-03-30\",\n" +
+				"\"gender\":\"MASCULINO\"\n" +
+				"}";
+		mockMvc.perform(MockMvcRequestBuilders
+				.post(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(201));
 	}
-
+	
+	
+	
 }

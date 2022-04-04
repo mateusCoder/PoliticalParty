@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssociateFormDTO {
 	
-	@NotEmpty
+	@NotEmpty @NotEmpty
 	private String name;
 	
 	@NotNull
@@ -33,7 +33,7 @@ public class AssociateFormDTO {
 	
 	private PoliticalParty politicalParty;
 
-	public Associate update(Integer id, AssociateRepository associateRepository) {
+	public Associate updateForm(Integer id, AssociateRepository associateRepository) {
 		Associate associate = associateRepository.getById(id);
 		associate.setName(this.name);
 		associate.setPoliticalOffice(this.politicalOffice);

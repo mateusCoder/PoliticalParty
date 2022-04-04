@@ -2,7 +2,7 @@ package compass.politicalParty.PoliticalParty.model;
 
 public enum TypeOffice {
 
-	VEREADOR("Vereadorr"),
+	VEREADOR("Vereador"),
 	PREFEITO("Prefeito"),
 	DEPUTADO_ESTADUAL("Deputado Estadual"),
 	DEPUTADO_FEDERAL("Deputado Federal"),

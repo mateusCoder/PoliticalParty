@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name="associate")
 public class Associate {
 	
@@ -39,7 +41,7 @@ public class Associate {
 	
 	@ManyToOne
 	private PoliticalParty politicalParty;
-
+	
 	public Associate(String name, TypeOffice politicalOffice, LocalDate date, TypeGender gender) {
 		this.name = name;
 		this.politicalOffice = politicalOffice;
@@ -50,4 +52,5 @@ public class Associate {
 	public Associate(PoliticalParty politicalParty) {
 		this.politicalParty = politicalParty;
 	}
+
 }

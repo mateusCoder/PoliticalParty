@@ -75,7 +75,7 @@ public class AssociateController {
 	
 	@Transactional
 	@PostMapping
-	public ResponseEntity<AssociateDTO> add(@RequestBody AssociateFormDTO associateFormDTO, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<AssociateDTO> add(@RequestBody @Valid AssociateFormDTO associateFormDTO, UriComponentsBuilder uriBuilder) {
 		Associate associate = mapper.map(associateFormDTO, Associate.class);
 		associateRepository.save(associate);
 		URI uri = uriBuilder.path("/api/associate/{id}").buildAndExpand(associate.getId()).toUri();
@@ -104,7 +104,7 @@ public class AssociateController {
 	@Transactional
 	@PutMapping("/{id}")
 	public ResponseEntity<AssociateDTO> update(@PathVariable Integer id, @RequestBody @Valid AssociateFormDTO associateFormDTO){
-		Associate associate = associateFormDTO.update(id, associateRepository);
+		Associate associate = associateFormDTO.updateForm(id, associateRepository);
 
 		return ResponseEntity.ok(new AssociateDTO(associate));
 	}
