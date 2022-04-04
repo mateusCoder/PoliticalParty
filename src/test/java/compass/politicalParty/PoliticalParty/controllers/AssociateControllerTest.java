@@ -56,6 +56,25 @@ class AssociateControllerTest {
 			.andExpect(MockMvcResultMatchers.status().is(201));
 	}
 	
+	@Test
+	public void updateAssociateById_sucess() throws Exception{
+		
+		Integer id = Integer.valueOf(1);
+		URI uri = new URI("/api/associate/" + id);
+		String json = "{" +
+				"\"name\":\"Atualizado\",\n"+
+				"\"politicalOffice\":\"PRESIDENTE\",\n" +
+				"\"date\":\"2020-03-30\",\n" +
+				"\"gender\":\"MASCULINO\"\n" +
+				"}";
+		mockMvc.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().is(200));
+	}
+	
+	
 	
 	
 }
